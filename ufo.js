@@ -1,10 +1,12 @@
-const blur = document.querySelector('.blur-dark');
-const scrollText = document.querySelector('.scroll-text');
-const iframe = document.getElementById('video-frame');
 let player;
+const blurLayer = document.querySelector('.blur-layer');
+const leftFlap = document.querySelector('.flap.left');
+const rightFlap = document.querySelector('.flap.right');
+const scrollText = document.querySelector('.scroll-text');
 
-// Vimeo API 로드
+// Load Vimeo API and set up player
 function loadVimeoPlayer() {
+  const iframe = document.getElementById('video-frame');
   const script = document.createElement('script');
   script.src = "https://player.vimeo.com/api/player.js";
   script.onload = () => {
@@ -14,24 +16,30 @@ function loadVimeoPlayer() {
 }
 loadVimeoPlayer();
 
-// 휠로 종이 찢기처럼 scale 축소
+// Scroll interaction
 window.addEventListener('scroll', () => {
   const scrollY = window.scrollY;
-  const maxScroll = 300;
+  const maxScroll = 400;
   const progress = Math.min(scrollY / maxScroll, 1);
 
-  // 종이가 찢어지듯 scaleY 줄이기 (0.1~1 사이)
-  const scale = 1 - progress;
-  blur.style.transform = `scaleY(${scale})`;
+  // Rotate flaps open
+  const angle = progress * 60; // degrees
+  const offsetX = progress * 200; // move outward
 
-  // 텍스트 점점 사라짐
+  leftFlap.style.transform = `translateX(-${offsetX}px) rotateY(-${angle}deg)`;
+  rightFlap.style.transform = `translateX(${offsetX}px) rotateY(${angle}deg)`;
+
+  // Blur fade out
+  blurLayer.style.backdropFilter = `blur(${20 - progress * 20}px)`;
+
+  // Text fade out
   scrollText.style.opacity = 1 - progress;
 
-  // 영상 재생/일시정지
+  // Video playback
   if (player) {
     if (progress >= 1) {
       player.play();
-    } else {
+    } else if (progress <= 0.05) {
       player.pause();
     }
   }
