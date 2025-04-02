@@ -1,8 +1,8 @@
-/* 기본 레이아웃 설정 */
+/* 기본 레이아웃 */
 html, body {
   margin: 0;
   padding: 0;
-  height: 200vh; /* 스크롤 생기도록 */
+  height: 200vh; /* 스크롤용 */
   overflow-x: hidden;
   background: #000;
 }
@@ -27,7 +27,7 @@ html, body {
   height: 100%;
   backdrop-filter: blur(20px);
   background: rgba(0, 0, 0, 0.5);
-  transition: backdrop-filter 0.4s ease;
+  transition: backdrop-filter 0.3s ease;
   z-index: 1;
   pointer-events: none;
 }
@@ -44,10 +44,10 @@ html, body {
   text-align: center;
   z-index: 3;
   opacity: 1;
-  transition: opacity 0.4s ease;
+  transition: opacity 0.3s ease;
 }
 
-/* 좌우 문 오버레이 (문 이미지 붙이기) */
+/* 좌우 문 오버레이 */
 .overlay {
   position: fixed;
   top: 0;
@@ -56,36 +56,16 @@ html, body {
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
-  transition: transform 0.6s ease;
   z-index: 2;
 }
 
-/* 왼쪽 문 */
+/* 이미지 배경 */
 .overlay.left {
   left: 0;
-  transform-origin: right center;
   background-image: url('machine-door-left.png');
 }
 
-/* 오른쪽 문 */
 .overlay.right {
   right: 0;
-  transform-origin: left center;
   background-image: url('machine-door-right.png');
-}
-
-/* 문 닫힌 상태 (기본) */
-.overlay.left.closed {
-  transform: translateX(0);
-}
-.overlay.right.closed {
-  transform: translateX(0);
-}
-
-/* 문 열린 상태 (바깥으로 이동) */
-.overlay.left.open {
-  transform: translateX(-100%);
-}
-.overlay.right.open {
-  transform: translateX(100%);
 }
