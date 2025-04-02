@@ -4,7 +4,7 @@ const right = document.querySelector('.overlay.right');
 const blur = document.querySelector('.blur-layer');
 const scrollText = document.querySelector('.scroll-text');
 
-// Vimeo API 로드 및 플레이어 초기화
+// Vimeo API 로드
 function loadVimeoPlayer() {
   const iframe = document.getElementById('video-frame');
   const script = document.createElement('script');
@@ -16,13 +16,13 @@ function loadVimeoPlayer() {
 }
 loadVimeoPlayer();
 
-// 스크롤에 따라 애니메이션 제어
+// 스크롤 비례로 문 열고 닫기
 window.addEventListener('scroll', () => {
   const scrollY = window.scrollY;
-  const maxScroll = 400; // 400px까지 진행
-  const progress = Math.min(scrollY / maxScroll, 1); // 0~1
+  const maxScroll = 400;
+  const progress = Math.min(scrollY / maxScroll, 1);
 
-  // 문 점진적으로 열기
+  // 좌우 문 슬라이드 비율로 적용
   const offset = progress * 100;
   left.style.transform = `translateX(-${100 - offset}%)`;
   right.style.transform = `translateX(${100 - offset}%)`;
