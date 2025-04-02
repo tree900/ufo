@@ -1,18 +1,19 @@
 window.addEventListener("scroll", () => {
   const scrollY = window.scrollY;
-  const blurLayer = document.querySelector(".blur-layer");
-  const zipper = document.querySelector(".zipper");
-  const scrollText = document.querySelector(".scroll-text");
+  const maxScroll = 400; // 블러 벗겨지는 최대 스크롤 길이
 
-  // 블러 점점 사라짐
-  const blurStrength = Math.max(15 - scrollY / 20, 0);
-  blurLayer.style.backdropFilter = `blur(${blurStrength}px)`;
+  // 진행 비율 (0 ~ 1)
+  const progress = Math.min(scrollY / maxScroll, 1);
 
-  // 지퍼 점점 내려감
-  const zipperMove = Math.min(scrollY / 2, 400);
-  zipper.style.transform = `translateX(-50%) translateY(${zipperMove}px)`;
+  // 왼쪽 상단 → 오른쪽 하단으로 점점 벗겨지는 느낌
+  const clipPath = `
+    polygon(
+      0% 0%,
+      ${progress * 100}% 0%,
+      ${progress * 100}% ${progress * 100}%,
+      0% ${progress * 100}%
+    )
+  `;
 
-  // 텍스트 점점 사라짐
-  const textOpacity = Math.max(1 - scrollY / 200, 0);
-  scrollText.style.opacity = textOpacity;
+  document.querySelector(".blur-overlay").style.clipPath = clipPath;
 });
