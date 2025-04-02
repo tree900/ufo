@@ -3,19 +3,20 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Blur Peel Effect</title>
+  <title>Paper Tear Reveal</title>
   <link rel="stylesheet" href="video.css" />
 </head>
 <body>
 
-  <!-- Vimeo Video -->
   <div class="video-wrapper">
-    <iframe src="https://player.vimeo.com/video/1066265233?autoplay=1&loop=1&background=1"
+    <iframe id="video-frame" src="https://player.vimeo.com/video/1066265233?background=1" 
             frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
   </div>
 
-  <!-- Blur Overlay -->
-  <div class="blur-overlay"></div>
+  <div class="blur-mask">
+    <div class="blur-dark"></div>
+    <div class="scroll-text">휠을<br>내려주세요</div>
+  </div>
 
   <script src="ufo.js"></script>
 </body>
