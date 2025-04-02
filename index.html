@@ -3,28 +3,22 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Torn Paper Reveal</title>
+  <title>Open Door Reveal</title>
   <link rel="stylesheet" href="video.css" />
 </head>
 <body>
 
-  <!-- Vimeo Video -->
   <div class="video-wrapper">
     <iframe id="video-frame"
             src="https://player.vimeo.com/video/1066265233?background=1"
             frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
   </div>
 
-  <!-- Blur Overlay -->
+  <div class="overlay left"></div>
+  <div class="overlay right"></div>
   <div class="blur-layer"></div>
 
-  <!-- Torn Paper Elements -->
-  <div class="paper-effect">
-    <img src="flap-left.png" class="flap left" alt="Left Flap" />
-    <img src="tear-center.png" class="tear" alt="Torn Center" />
-    <img src="flap-right.png" class="flap right" alt="Right Flap" />
-    <div class="scroll-text">휠을<br>내려주세요</div>
-  </div>
+  <div class="scroll-text">휠을<br>내려주세요</div>
 
   <script src="ufo.js"></script>
 </body>
