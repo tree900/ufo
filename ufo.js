@@ -1,10 +1,10 @@
 let player;
-const blurLayer = document.querySelector('.blur-layer');
-const leftFlap = document.querySelector('.flap.left');
-const rightFlap = document.querySelector('.flap.right');
+const left = document.querySelector('.overlay.left');
+const right = document.querySelector('.overlay.right');
+const blur = document.querySelector('.blur-layer');
 const scrollText = document.querySelector('.scroll-text');
 
-// Load Vimeo API and set up player
+// Vimeo Player 연결
 function loadVimeoPlayer() {
   const iframe = document.getElementById('video-frame');
   const script = document.createElement('script');
@@ -16,26 +16,23 @@ function loadVimeoPlayer() {
 }
 loadVimeoPlayer();
 
-// Scroll interaction
+// Scroll 따라 열고 닫기
 window.addEventListener('scroll', () => {
   const scrollY = window.scrollY;
   const maxScroll = 400;
   const progress = Math.min(scrollY / maxScroll, 1);
 
-  // Rotate flaps open
-  const angle = progress * 60; // degrees
-  const offsetX = progress * 200; // move outward
+  // 문 열리듯이 좌우로 rotateY
+  left.style.transform = `rotateY(-${progress * 90}deg)`;
+  right.style.transform = `rotateY(${progress * 90}deg)`;
 
-  leftFlap.style.transform = `translateX(-${offsetX}px) rotateY(-${angle}deg)`;
-  rightFlap.style.transform = `translateX(${offsetX}px) rotateY(${angle}deg)`;
+  // 블러 줄이기
+  blur.style.backdropFilter = `blur(${20 - progress * 20}px)`;
 
-  // Blur fade out
-  blurLayer.style.backdropFilter = `blur(${20 - progress * 20}px)`;
-
-  // Text fade out
+  // 텍스트 사라지기
   scrollText.style.opacity = 1 - progress;
 
-  // Video playback
+  // 영상 제어
   if (player) {
     if (progress >= 1) {
       player.play();
