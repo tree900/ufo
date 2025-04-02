@@ -1,19 +1,38 @@
-window.addEventListener("scroll", () => {
-  const scrollY = window.scrollY;
-  const maxScroll = 400; // 블러 벗겨지는 최대 스크롤 길이
+const blur = document.querySelector('.blur-dark');
+const scrollText = document.querySelector('.scroll-text');
+const iframe = document.getElementById('video-frame');
+let player;
 
-  // 진행 비율 (0 ~ 1)
+// Vimeo API 로드
+function loadVimeoPlayer() {
+  const script = document.createElement('script');
+  script.src = "https://player.vimeo.com/api/player.js";
+  script.onload = () => {
+    player = new Vimeo.Player(iframe);
+  };
+  document.body.appendChild(script);
+}
+loadVimeoPlayer();
+
+// 휠로 종이 찢기처럼 scale 축소
+window.addEventListener('scroll', () => {
+  const scrollY = window.scrollY;
+  const maxScroll = 300;
   const progress = Math.min(scrollY / maxScroll, 1);
 
-  // 왼쪽 상단 → 오른쪽 하단으로 점점 벗겨지는 느낌
-  const clipPath = `
-    polygon(
-      0% 0%,
-      ${progress * 100}% 0%,
-      ${progress * 100}% ${progress * 100}%,
-      0% ${progress * 100}%
-    )
-  `;
+  // 종이가 찢어지듯 scaleY 줄이기 (0.1~1 사이)
+  const scale = 1 - progress;
+  blur.style.transform = `scaleY(${scale})`;
 
-  document.querySelector(".blur-overlay").style.clipPath = clipPath;
+  // 텍스트 점점 사라짐
+  scrollText.style.opacity = 1 - progress;
+
+  // 영상 재생/일시정지
+  if (player) {
+    if (progress >= 1) {
+      player.play();
+    } else {
+      player.pause();
+    }
+  }
 });
