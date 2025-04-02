@@ -3,21 +3,26 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Open Door Reveal</title>
+  <title>Sliding Door Video Reveal</title>
   <link rel="stylesheet" href="video.css" />
 </head>
 <body>
 
+  <!-- Vimeo 영상 -->
   <div class="video-wrapper">
     <iframe id="video-frame"
             src="https://player.vimeo.com/video/1066265233?background=1"
             frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
   </div>
 
-  <div class="overlay left"></div>
-  <div class="overlay right"></div>
+  <!-- 좌우 슬라이딩 패널 -->
+  <div class="overlay left closed"></div>
+  <div class="overlay right closed"></div>
+
+  <!-- 블러 -->
   <div class="blur-layer"></div>
 
+  <!-- 안내 텍스트 -->
   <div class="scroll-text">휠을<br>내려주세요</div>
 
   <script src="ufo.js"></script>
