@@ -1,40 +1,50 @@
-/* 기본 레이아웃 */
+/* 기본 설정 */
 html, body {
   margin: 0;
   padding: 0;
-  height: 200vh; /* 스크롤용 */
+  height: 200vh;
   overflow-x: hidden;
   background: #000;
+  display: flex;
+  justify-content: center;
+  align-items: start;
 }
 
-/* Vimeo 영상 전체 배경 */
+.container {
+  width: 1440px;
+  height: 810px;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Vimeo 비디오 */
 .video-wrapper iframe {
-  position: fixed;
+  position: absolute;
   top: 0;
   left: 0;
-  width: 100vw;
-  height: 100vh;
+  width: 1440px;
+  height: 810px;
   z-index: 0;
   pointer-events: none;
 }
 
-/* 블러 오버레이 */
+/* 블러 */
 .blur-layer {
-  position: fixed;
+  position: absolute;
   top: 0;
   left: 0;
-  width: 100%;
-  height: 100%;
+  width: 1440px;
+  height: 810px;
   backdrop-filter: blur(20px);
   background: rgba(0, 0, 0, 0.5);
-  transition: backdrop-filter 0.3s ease;
   z-index: 1;
   pointer-events: none;
+  transition: backdrop-filter 0.3s ease;
 }
 
 /* 안내 텍스트 */
 .scroll-text {
-  position: fixed;
+  position: absolute;
   top: 40%;
   left: 50%;
   transform: translateX(-50%);
@@ -47,24 +57,25 @@ html, body {
   transition: opacity 0.3s ease;
 }
 
-/* 좌우 문 오버레이 */
+/* 문 오버레이 */
 .overlay {
-  position: fixed;
+  position: absolute;
   top: 0;
-  width: 50vw;
-  height: 100vh;
+  width: 50%;
+  height: 810px;
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
   z-index: 2;
 }
 
-/* 이미지 배경 */
+/* 왼쪽 */
 .overlay.left {
   left: 0;
   background-image: url('machine-door-left.png');
 }
 
+/* 오른쪽 */
 .overlay.right {
   right: 0;
   background-image: url('machine-door-right.png');
