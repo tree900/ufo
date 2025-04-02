@@ -4,7 +4,6 @@ const right = document.querySelector('.overlay.right');
 const blur = document.querySelector('.blur-layer');
 const scrollText = document.querySelector('.scroll-text');
 
-// Vimeo API 로드
 function loadVimeoPlayer() {
   const iframe = document.getElementById('video-frame');
   const script = document.createElement('script');
@@ -16,29 +15,28 @@ function loadVimeoPlayer() {
 }
 loadVimeoPlayer();
 
-// 스크롤 비례로 문 열고 닫기
 window.addEventListener('scroll', () => {
   const scrollY = window.scrollY;
-  const maxScroll = 400;
-  const progress = Math.min(scrollY / maxScroll, 1);
 
-  // 좌우 문 슬라이드 비율로 적용
-  const offset = progress * 100;
-  left.style.transform = `translateX(-${100 - offset}%)`;
-  right.style.transform = `translateX(${100 - offset}%)`;
+  if (scrollY > 50) {
+    // 열림
+    left.classList.remove('closed');
+    right.classList.remove('closed');
+    left.classList.add('open');
+    right.classList.add('open');
 
-  // 블러 점점 줄이기
-  blur.style.backdropFilter = `blur(${20 - progress * 20}px)`;
+    blur.style.backdropFilter = `blur(0px)`;
+    scrollText.style.opacity = 0;
+    player && player.play();
+  } else {
+    // 닫힘
+    left.classList.remove('open');
+    right.classList.remove('open');
+    left.classList.add('closed');
+    right.classList.add('closed');
 
-  // 텍스트 점점 사라지기
-  scrollText.style.opacity = 1 - progress;
-
-  // 영상 제어
-  if (player) {
-    if (progress >= 1) {
-      player.play();
-    } else if (progress <= 0.05) {
-      player.pause();
-    }
+    blur.style.backdropFilter = `blur(20px)`;
+    scrollText.style.opacity = 1;
+    player && player.pause();
   }
 });
