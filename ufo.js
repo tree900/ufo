@@ -1,42 +1,32 @@
-let player;
-const left = document.querySelector('.overlay.left');
-const right = document.querySelector('.overlay.right');
-const blur = document.querySelector('.blur-layer');
-const scrollText = document.querySelector('.scroll-text');
-
-function loadVimeoPlayer() {
-  const iframe = document.getElementById('video-frame');
-  const script = document.createElement('script');
-  script.src = "https://player.vimeo.com/api/player.js";
-  script.onload = () => {
-    player = new Vimeo.Player(iframe);
-  };
-  document.body.appendChild(script);
-}
-loadVimeoPlayer();
+// 이미 실행했는지 체크하는 플래그
+let alreadyTriggered = false;
 
 window.addEventListener('scroll', () => {
-  const scrollY = window.scrollY;
+  const scrollY = window.scrollY || window.pageYOffset;
 
-  if (scrollY > 50) {
-    // 열림
-    left.classList.remove('closed');
-    right.classList.remove('closed');
-    left.classList.add('open');
-    right.classList.add('open');
+  if (scrollY > 50 && !alreadyTriggered) {
+    alreadyTriggered = true;
 
-    blur.style.backdropFilter = `blur(0px)`;
+    const leftDoor = document.querySelector('.overlay.left');
+    const rightDoor = document.querySelector('.overlay.right');
+    const scrollText = document.querySelector('.scroll-text');
+    const blurLayer = document.querySelector('.blur-layer');
+
+    // ✅ 텍스트는 바로 사라짐
     scrollText.style.opacity = 0;
-    player && player.play();
-  } else {
-    // 닫힘
-    left.classList.remove('open');
-    right.classList.remove('open');
-    left.classList.add('closed');
-    right.classList.add('closed');
 
-    blur.style.backdropFilter = `blur(20px)`;
-    scrollText.style.opacity = 1;
-    player && player.pause();
+    // ✅ 문은 동시에 열림
+    leftDoor.classList.remove('closed');
+    leftDoor.classList.add('open');
+
+    rightDoor.classList.remove('closed');
+    rightDoor.classList.add('open');
+
+    // ✅ 블러는 1.5초 뒤에 천천히 사라짐
+    setTimeout(() => {
+      blurLayer.style.transition = 'backdrop-filter 1.5s ease, background 1.5s ease';
+      blurLayer.style.backdropFilter = 'blur(0px)';
+      blurLayer.style.background = 'rgba(0, 0, 0, 0)';
+    }, 1500);
   }
 });
