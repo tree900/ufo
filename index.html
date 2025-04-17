@@ -3,24 +3,34 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Smooth Scroll Triggered Doors</title>
-  <link rel="stylesheet" href="video.css" />
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      overflow: hidden;
+    }
+
+    .video-wrapper {
+      width: 100%;
+      height: 100%;
+      position: relative;
+    }
+
+    .video-wrapper iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+  </style>
 </head>
 <body>
-  <div class="container">
-    <div class="video-wrapper">
-      <iframe id="video-frame"
-              src="https://player.vimeo.com/video/1066265233?background=1&autoplay=1&muted=1&loop=1"
-              frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
-    </div>
-
-    <div class="overlay left closed"></div>
-    <div class="overlay right closed"></div>
-
-    <div class="blur-layer"></div>
-    <div class="scroll-text">휠을<br>내려주세요</div>
+  <div class="video-wrapper">
+    <iframe 
+      src="https://player.vimeo.com/video/1066265233?background=1&autoplay=1&muted=1&loop=1"
+      allow="autoplay; fullscreen"
+      allowfullscreen>
+    </iframe>
   </div>
-
-  <script src="./ufo.js"></script>
 </body>
 </html>
